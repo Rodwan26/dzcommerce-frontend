@@ -64,9 +64,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const navItems = [
     { href: "/dashboard", label: t("nav_home"), icon: "📊" },
     { href: "/dashboard/products", label: t("nav_products"), icon: "📦" },
+    { href: "/dashboard/inventory", label: t("nav_inventory"), icon: "📥" },
     { href: "/dashboard/orders", label: t("nav_orders"), icon: "📋" },
-    { href: "/dashboard/marketing", label: t("nav_marketing"), icon: "📈" },
+    { href: "/dashboard/customers", label: t("nav_customers"), icon: "👥" },
+    { href: "/dashboard/analytics", label: t("nav_analytics"), icon: "📈" },
+    { href: "/dashboard/reports", label: t("nav_reports"), icon: "📑" },
+    { href: "/dashboard/integrations", label: t("nav_integrations"), icon: "🔗" },
     { href: "/dashboard/shipping", label: t("nav_shipping"), icon: "🚚" },
+    { href: "/dashboard/search", label: t("nav_search"), icon: "🔍" },
+    { href: "/dashboard/team", label: t("nav_team"), icon: "👨‍💼" },
+    { href: "/dashboard/help", label: t("nav_help"), icon: "❓" },
     { href: "/dashboard/settings", label: t("nav_settings"), icon: "⚙️" },
   ];
 

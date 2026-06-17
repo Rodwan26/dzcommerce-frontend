@@ -2,7 +2,7 @@
 export const dynamic = "force-dynamic";
 
 import { cn } from "@/lib/utils";
-import { Card, CardTitle, Badge, PageSkeleton, KpiCard } from "@/components/ui";
+import { Card, CardTitle, Badge, PageSkeleton, KpiCard, Chart } from "@/components/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api-client";
@@ -126,30 +126,81 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Revenue Chart Placeholder */}
+      {/* Revenue Chart */}
       <Card>
         <div className="flex items-center justify-between mb-4">
-          <CardTitle>الإيرادات</CardTitle>
+          <CardTitle>{t("revenue_trend")}</CardTitle>
           <div className="flex gap-1">
-            {["أسبوعي", "شهري", "سنوي"].map((label) => (
+            {["weekly", "monthly", "yearly"].map((label) => (
               <button key={label} className={cn(
                 "px-3 py-1 text-xs font-display font-semibold rounded-lg transition-colors",
-                label === "شهري"
+                label === "monthly"
                   ? "bg-[rgb(var(--color-accent))] text-white"
                   : "text-[rgb(var(--color-text-secondary))] hover:bg-[rgb(var(--color-accent-soft))]"
               )}>
-                {label}
+                {label.charAt(0).toUpperCase() + label.slice(1)}
               </button>
             ))}
           </div>
         </div>
-        <div className="h-64 rounded-lg bg-gradient-to-b from-[rgb(var(--color-accent-soft))]/50 to-transparent flex items-center justify-center">
-          <div className="text-center">
-            <span className="text-3xl block mb-2">📈</span>
-            <p className="text-sm text-[rgb(var(--color-text-secondary))] font-display font-semibold">مخطط الإيرادات</p>
-          </div>
-        </div>
+        <Chart
+          type="line"
+          data={[
+            { date: "1", revenue: 4000 },
+            { date: "2", revenue: 3000 },
+            { date: "3", revenue: 2000 },
+            { date: "4", revenue: 2780 },
+            { date: "5", revenue: 1890 },
+            { date: "6", revenue: 2390 },
+            { date: "7", revenue: 3490 },
+            { date: "8", revenue: 4200 },
+            { date: "9", revenue: 3800 },
+            { date: "10", revenue: 4500 },
+          ]}
+          dataKey="revenue"
+          height={320}
+          colors={["#3a5f84"]}
+        />
       </Card>
+
+      {/* Charts Grid */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        <Card>
+          <div className="flex items-center justify-between mb-4">
+            <CardTitle>{t("order_status_breakdown")}</CardTitle>
+          </div>
+          <Chart
+            type="pie"
+            data={[
+              { name: to("status_pending"), value: 45 },
+              { name: to("status_confirmed"), value: 30 },
+              { name: to("status_shipped"), value: 15 },
+              { name: to("status_delivered"), value: 10 },
+            ]}
+            dataKey="value"
+            height={280}
+          />
+        </Card>
+
+        <Card>
+          <div className="flex items-center justify-between mb-4">
+            <CardTitle>{t("top_products")}</CardTitle>
+          </div>
+          <Chart
+            type="bar"
+            data={[
+              { name: "Product A", sales: 400 },
+              { name: "Product B", sales: 300 },
+              { name: "Product C", sales: 200 },
+              { name: "Product D", sales: 278 },
+              { name: "Product E", sales: 189 },
+            ]}
+            dataKey="sales"
+            height={280}
+            colors={["#b6612e"]}
+          />
+        </Card>
+      </div>
 
       {/* Recent Orders + Activity */}
       <div className="grid lg:grid-cols-2 gap-6">

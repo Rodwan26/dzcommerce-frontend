@@ -18,3 +18,4 @@ export { Toggle } from "./Toggle";
 export { SearchBar } from "./SearchBar";
 export { KpiCard } from "./KpiCard";
 export { PageHeader } from "./PageHeader";
+export { Chart } from "./Chart";
