@@ -90,44 +90,49 @@ export default function ProductsPage() {
     <div className="space-y-6 animate-fade-in">
       <ProductFormModal isOpen={isModalOpen} onClose={closeModal} product={selectedProduct} />
 
-      <PageHeader
-        title={t("title")}
-        description={t("subtitle")}
-        actions={<Button onClick={openCreateModal}>{t("add_product")}</Button>}
-      />
+      {/* Page Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title")}</h1>
+          <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">{t("subtitle")}</p>
+        </div>
+        <Button onClick={openCreateModal} className="shrink-0">{t("add_product")}</Button>
+      </div>
 
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
-        <div className="flex gap-1">
+      {/* Filters and Search - Improved layout */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex gap-2 flex-wrap">
           {(["all", "active", "inactive"] as const).map((filter) => (
             <button
               key={filter}
               onClick={() => setStatusFilter(filter)}
-              className={`px-3 py-1.5 text-xs font-display font-semibold rounded-lg transition-colors ${
+              className={`px-4 py-2 text-xs font-display font-semibold rounded-lg transition-all ${
                 statusFilter === filter
-                  ? "bg-[rgb(var(--color-accent))] text-white"
-                  : "text-[rgb(var(--color-text-secondary))] hover:bg-[rgb(var(--color-accent-soft))]"
+                  ? "bg-[rgb(var(--color-accent))] text-white shadow-md"
+                  : "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-secondary))] border border-[rgb(var(--color-border))] hover:bg-[rgb(var(--color-accent-soft))] hover:text-[rgb(var(--color-text))]"
               }`}
             >
-              {filter === "all" ? "الكل" : filter === "active" ? t("status_active") : t("status_inactive")}
+              {filter === "all" ? t("filter_all") : filter === "active" ? t("status_active") : t("status_inactive")}
             </button>
           ))}
         </div>
-        <SearchBar value={search} onChange={setSearch} placeholder={t("table_name") + "..."} className="w-full sm:w-64" />
+        <SearchBar value={search} onChange={setSearch} placeholder={`البحث في ${t("table_name")}...`} className="w-full lg:w-80" />
       </div>
 
       {isLoading ? (
         <TableSkeleton rows={5} cols={4} />
       ) : (
-        <div className="bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-          <Table
-            columns={columns}
-            data={filtered}
-            keyExtractor={(p) => p.id}
-            emptyLabel={t("empty")}
-            searchable={false}
-            pageSize={10}
-          />
+        <div className="bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+          <div className="overflow-x-auto">
+            <Table
+              columns={columns}
+              data={filtered}
+              keyExtractor={(p) => p.id}
+              emptyLabel={t("empty")}
+              searchable={false}
+              pageSize={10}
+            />
+          </div>
         </div>
       )}
     </div>

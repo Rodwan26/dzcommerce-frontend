@@ -172,14 +172,13 @@ export default function TeamPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      {/* Page Header */}
       <div className="flex items-start justify-between">
-        <PageHeader
-          title={t("title", { defaultValue: "Team Management" })}
-          description={t("subtitle", { defaultValue: "Manage team members and permissions" })}
-        />
-        <Button onClick={() => setModalOpen(true)} className="mt-6">
-          {t("invite_member", { defaultValue: "Invite Member" })}
-        </Button>
+        <div>
+          <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title", { defaultValue: "Team Management" })}</h1>
+          <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">{t("subtitle", { defaultValue: "Manage team members and permissions" })}</p>
+        </div>
+        <Button onClick={() => setModalOpen(true)} className="shrink-0">{t("invite_member", { defaultValue: "Invite Member" })}</Button>
       </div>
 
       {/* Team Stats */}

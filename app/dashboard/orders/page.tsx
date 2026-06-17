@@ -151,43 +151,49 @@ export default function OrdersPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <PageHeader
-        title={t("title")}
-        description={t("subtitle")}
-        actions={<Button onClick={() => router.push("/dashboard/orders/new")}>{t("new_order")}</Button>}
-      />
+      {/* Page Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title")}</h1>
+          <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">{t("subtitle")}</p>
+        </div>
+        <Button onClick={() => router.push("/dashboard/orders/new")} className="shrink-0">{t("new_order")}</Button>
+      </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
-        <div className="flex gap-2 flex-wrap">
+      {/* Filters and Search */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex gap-3 flex-wrap">
           <Select
             value={filterConfirmation}
             onChange={(e) => setFilterConfirmation(e.target.value)}
             options={confirmationOptions}
-            className="w-40"
+            className="w-48"
           />
           <Select
             value={filterShipping}
             onChange={(e) => setFilterShipping(e.target.value)}
             options={shippingOptions}
-            className="w-40"
+            className="w-48"
           />
         </div>
-        <SearchBar value={search} onChange={setSearch} placeholder="Search orders..." className="w-full sm:w-64" />
+        <SearchBar value={search} onChange={setSearch} placeholder={`البحث برقم الطلب...`} className="w-full lg:w-80" />
       </div>
 
       {isLoading ? (
         <TableSkeleton rows={5} cols={7} />
       ) : (
-        <div className="bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-          <Table
-            columns={columns}
-            data={filtered}
-            keyExtractor={(o) => o.id}
-            emptyLabel={t("empty")}
-            searchable={false}
-            pageSize={10}
-            onRowClick={(o) => router.push(`/dashboard/orders/${o.id}`)}
-          />
+        <div className="bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+          <div className="overflow-x-auto">
+            <Table
+              columns={columns}
+              data={filtered}
+              keyExtractor={(o) => o.id}
+              emptyLabel={t("empty")}
+              searchable={false}
+              pageSize={10}
+              onRowClick={(o) => router.push(`/dashboard/orders/${o.id}`)}
+            />
+          </div>
         </div>
       )}
     </div>

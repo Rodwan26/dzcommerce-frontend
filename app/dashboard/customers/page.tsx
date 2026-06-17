@@ -113,36 +113,41 @@ export default function CustomersPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <PageHeader
-        title={t("title", { defaultValue: "Customers" })}
-        description={t("subtitle", { defaultValue: "Manage and analyze customer relationships" })}
-      />
+      {/* Page Header */}
+      <div>
+        <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title", { defaultValue: "Customers" })}</h1>
+        <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">{t("subtitle", { defaultValue: "Manage and analyze customer relationships" })}</p>
+      </div>
 
-      {/* Customer Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="!p-4">
-          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase mb-1">
+      {/* Customer Stats - Professional cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <Card className="!p-5">
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase tracking-wider mb-2">
             {t("stat_total", { defaultValue: "Total Customers" })}
           </p>
-          <p className="text-2xl font-display font-extrabold">{stats.total}</p>
+          <p className="text-3xl font-display font-extrabold text-[rgb(var(--color-text))]">{stats.total}</p>
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] mt-3">📈 +12% من الشهر الماضي</p>
         </Card>
-        <Card className="!p-4">
-          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase mb-1">
-            {t("stat_vip", { defaultValue: "VIP" })}
+        <Card className="!p-5">
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase tracking-wider mb-2">
+            {t("stat_vip", { defaultValue: "VIP Customers" })}
           </p>
-          <p className="text-2xl font-display font-extrabold text-[rgb(var(--color-accent))]">{stats.vip}</p>
+          <p className="text-3xl font-display font-extrabold text-[rgb(var(--color-accent))]">{stats.vip}</p>
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] mt-3">👑 عملاء مميزون</p>
         </Card>
-        <Card className="!p-4">
-          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase mb-1">
+        <Card className="!p-5">
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase tracking-wider mb-2">
             {t("stat_high_value", { defaultValue: "High Value" })}
           </p>
-          <p className="text-2xl font-display font-extrabold">{stats.highValue}</p>
+          <p className="text-3xl font-display font-extrabold text-yellow-600 dark:text-yellow-500">{stats.highValue}</p>
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] mt-3">💎 أعلى إنفاق</p>
         </Card>
-        <Card className="!p-4">
-          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase mb-1">
-            {t("stat_new", { defaultValue: "New" })}
+        <Card className="!p-5">
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] font-display font-semibold uppercase tracking-wider mb-2">
+            {t("stat_new", { defaultValue: "New Customers" })}
           </p>
-          <p className="text-2xl font-display font-extrabold">{stats.new}</p>
+          <p className="text-3xl font-display font-extrabold text-green-600 dark:text-green-500">{stats.new}</p>
+          <p className="text-xs text-[rgb(var(--color-text-secondary))] mt-3">⭐ آخر 30 يوم</p>
         </Card>
       </div>
 
@@ -162,39 +167,41 @@ export default function CustomersPage() {
         />
       </Card>
 
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
-        <div className="flex gap-1">
+      {/* Segment Filters - Professional styling */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex gap-2 flex-wrap">
           {(["all", "vip", "high-value", "new"] as const).map((filter) => (
             <button
               key={filter}
               onClick={() => setSegmentFilter(filter)}
-              className={`px-3 py-1.5 text-xs font-display font-semibold rounded-lg transition-colors ${
+              className={`px-4 py-2 text-xs font-display font-semibold rounded-lg transition-all ${
                 segmentFilter === filter
-                  ? "bg-[rgb(var(--color-accent))] text-white"
-                  : "text-[rgb(var(--color-text-secondary))] hover:bg-[rgb(var(--color-accent-soft))]"
+                  ? "bg-[rgb(var(--color-accent))] text-white shadow-md"
+                  : "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-secondary))] border border-[rgb(var(--color-border))] hover:bg-[rgb(var(--color-accent-soft))] hover:text-[rgb(var(--color-text))]"
               }`}
             >
-              {filter === "all" ? t("all", { defaultValue: "All" }) : filter === "vip" ? "VIP" : filter === "high-value" ? t("high_value", { defaultValue: "High Value" }) : t("new", { defaultValue: "New" })}
+              {filter === "all" ? t("all", { defaultValue: "All" }) : filter === "vip" ? "👑 VIP" : filter === "high-value" ? "💎 High Value" : "⭐ New"}
             </button>
           ))}
         </div>
-        <SearchBar value={search} onChange={setSearch} placeholder={t("search_placeholder", { defaultValue: "Search by name or email..." })} className="w-full sm:w-64" />
+        <SearchBar value={search} onChange={setSearch} placeholder="البحث بالاسم أو البريد..." className="w-full lg:w-80" />
       </div>
 
       {/* Customers Table */}
       {isLoading ? (
         <TableSkeleton rows={5} cols={5} />
       ) : (
-        <div className="bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-          <Table
-            columns={columns}
-            data={filtered}
-            keyExtractor={(c) => c.id}
-            emptyLabel={t("empty", { defaultValue: "No customers found" })}
-            searchable={false}
-            pageSize={10}
-          />
+        <div className="bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+          <div className="overflow-x-auto">
+            <Table
+              columns={columns}
+              data={filtered}
+              keyExtractor={(c) => c.id}
+              emptyLabel={t("empty", { defaultValue: "No customers found" })}
+              searchable={false}
+              pageSize={10}
+            />
+          </div>
         </div>
       )}
     </div>

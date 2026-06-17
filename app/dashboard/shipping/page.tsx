@@ -42,11 +42,14 @@ export default function ShippingPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <PageHeader
-        title={t("title")}
-        description={t("subtitle")}
-        actions={<Button onClick={openCreate}>{t("add_provider")}</Button>}
-      />
+      {/* Page Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title")}</h1>
+          <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">{t("subtitle")}</p>
+        </div>
+        <Button onClick={openCreate} className="shrink-0">{t("add_provider")}</Button>
+      </div>
 
       {isLoading ? (
         <PageSkeleton />

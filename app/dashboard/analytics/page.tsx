@@ -95,9 +95,26 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <PageHeader
-          title={t("title", { defaultValue: "Analytics & Reports" })}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title", { defaultValue: "Analytics & Reports" })}</h1>
+          <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">تحليل شامل لأداء المتجر والمبيعات</p>
+        </div>
+        <div className="flex gap-2">
+          {(["7d", "30d", "90d"] as const).map((range) => (
+            <button
+              key={range}
+              onClick={() => setDateRange(range)}
+              className={`px-3 py-2 text-xs font-display font-semibold rounded-lg transition-all ${
+                dateRange === range
+                  ? "bg-[rgb(var(--color-accent))] text-white shadow-md"
+                  : "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-secondary))] border border-[rgb(var(--color-border))] hover:bg-[rgb(var(--color-accent-soft))]"
+              }`}
+            >
+              {range === "7d" ? "7 أيام" : range === "30d" ? "30 يوم" : "90 يوم"}
+            </button>
+          ))}
+        </div>
           description={t("subtitle", { defaultValue: "Track your business performance in real-time" })}
         />
         <div className="flex gap-1">

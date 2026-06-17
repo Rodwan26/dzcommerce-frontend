@@ -113,10 +113,11 @@ export default function InventoryPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <PageHeader
-        title={t("title", { defaultValue: "Inventory Management" })}
-        description={t("subtitle", { defaultValue: "Track stock levels and manage inventory" })}
-      />
+      {/* Page Header */}
+      <div>
+        <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title", { defaultValue: "Inventory Management" })}</h1>
+        <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">{t("subtitle", { defaultValue: "Manage and monitor your inventory levels" })}</p>
+      </div>
 
       {/* Inventory Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

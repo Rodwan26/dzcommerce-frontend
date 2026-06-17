@@ -145,10 +145,11 @@ export default function IntegrationsPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <PageHeader
-        title={t("title", { defaultValue: "Integrations & Channels" })}
-        description={t("subtitle", { defaultValue: "Connect your sales channels and business tools" })}
-      />
+      {/* Page Header */}
+      <div>
+        <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[rgb(var(--color-text))]">{t("title", { defaultValue: "Integrations" })}</h1>
+        <p className="text-[rgb(var(--color-text-secondary))] mt-2 text-sm lg:text-base">{t("subtitle", { defaultValue: "Connect third-party services to expand functionality" })}</p>
+      </div>
 
       {/* Connected Integrations */}
       {integrations && integrations.length > 0 && (
